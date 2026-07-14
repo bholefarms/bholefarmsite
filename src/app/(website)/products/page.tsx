@@ -159,7 +159,7 @@ export default async function ProductsPage() {
                   </div>
                   <div className="p-4">
                     <h3 className="font-heading font-bold text-foreground group-hover:text-[#1B5E20] transition-colors">{product.name}</h3>
-                    {product.price && <p className="mt-1 text-lg font-bold text-[#1B5E20]">₹{product.price.toString()}<span className="text-xs text-muted-foreground font-normal"> / kg</span></p>}
+                    {product.price && <p className="mt-1 text-lg font-bold text-[#1B5E20]">₹{product.price.toString()}<span className="text-xs text-muted-foreground font-normal"> / {product.unit?.toLowerCase() || 'kg'}</span></p>}
                     {product.description && <p className="mt-1 text-sm text-muted-foreground line-clamp-2">{product.description}</p>}
                   </div>
                 </Link>

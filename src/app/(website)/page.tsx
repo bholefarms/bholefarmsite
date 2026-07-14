@@ -103,10 +103,10 @@ export default async function HomePage() {
           </AnimatedSection>
           <AnimatedStagger className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.08}>
             {(featuredProducts.length > 0 ? featuredProducts : [
-              { id: "kesar", slug: "kesar-mango", name: "Kesar Mango", price: 599, images: [{ imagePath: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=600&q=80" }], description: "Sweet, aromatic, and golden", isFeatured: true },
-              { id: "alphonso", slug: "alphonso-mango", name: "Alphonso Mango", price: 899, images: [{ imagePath: "https://images.unsplash.com/photo-1629828874514-d53eeea7a101?w=600&q=80" }], description: "The king of mangoes", isFeatured: true },
-              { id: "jamun", slug: "jamun", name: "Fresh Jamun", price: 299, images: [{ imagePath: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=600&q=80" }], description: "Purple treasure of summer", isFeatured: true },
-              { id: "totapuri", slug: "totapuri-mango", name: "Totapuri Mango", price: 449, images: [{ imagePath: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=600&q=80" }], description: "Tangy, firm, and delicious", isFeatured: true },
+              { id: "kesar", slug: "kesar-mango", name: "Kesar Mango", price: 599, images: [{ imagePath: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=600&q=80" }], description: "Sweet, aromatic, and golden", isFeatured: true, unit: "KG" },
+              { id: "alphonso", slug: "alphonso-mango", name: "Alphonso Mango", price: 899, images: [{ imagePath: "https://images.unsplash.com/photo-1629828874514-d53eeea7a101?w=600&q=80" }], description: "The king of mangoes", isFeatured: true, unit: "KG" },
+              { id: "jamun", slug: "jamun", name: "Fresh Jamun", price: 299, images: [{ imagePath: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=600&q=80" }], description: "Purple treasure of summer", isFeatured: true, unit: "KG" },
+              { id: "totapuri", slug: "totapuri-mango", name: "Totapuri Mango", price: 449, images: [{ imagePath: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=600&q=80" }], description: "Tangy, firm, and delicious", isFeatured: true, unit: "KG" },
             ]).slice(0, 4).map((product, i) => (
               <AnimatedChild key={product.id}>
                 <Link href={`/products/${product.slug}`} className="group block rounded-2xl bg-white border border-border/40 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
@@ -130,7 +130,7 @@ export default async function HomePage() {
                   </div>
                   <div className="p-4">
                     <h3 className="font-heading font-bold text-foreground group-hover:text-primary transition-colors">{product.name}</h3>
-                    {product.price && <p className="mt-1 text-lg font-bold text-primary">₹{product.price.toString()}<span className="text-xs text-muted-foreground font-normal"> / kg</span></p>}
+                    {product.price && <p className="mt-1 text-lg font-bold text-primary">₹{product.price.toString()}<span className="text-xs text-muted-foreground font-normal"> / {product.unit?.toLowerCase() || 'kg'}</span></p>}
                     <p className="mt-1 text-sm text-muted-foreground">{product.description}</p>
                   </div>
                 </Link>

@@ -64,7 +64,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
             </div>
 
             <h1 className="font-heading text-4xl md:text-5xl font-bold text-foreground leading-tight">{product.name}</h1>
-            {product.price && <p className="mt-3 text-3xl font-bold text-primary">₹{product.price.toString()}<span className="text-base text-muted-foreground font-normal"> / kg</span></p>}
+            {product.price && <p className="mt-3 text-3xl font-bold text-primary">₹{product.price.toString()}<span className="text-base text-muted-foreground font-normal"> / {product.unit?.toLowerCase() || 'kg'}</span></p>}
             {product.description && <p className="mt-4 text-muted-foreground leading-relaxed">{product.description}</p>}
 
             {/* Actions */}
