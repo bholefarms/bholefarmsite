@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter, Poppins } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/shared/header";
-import { Footer } from "@/components/shared/footer";
-import { WhatsAppButton } from "@/components/shared/whatsapp-button";
 import { SITE_NAME, SITE_DESCRIPTION } from "@/lib/constants";
 
 const playfair = Playfair_Display({
@@ -50,10 +47,7 @@ export default function RootLayout({
       className={`${playfair.variable} ${inter.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppButton />
+        {children}
       </body>
     </html>
   );
