@@ -8,3 +8,5 @@ Task 2: complete (commit 3f49448)
 Task 3: complete (commit f1b011c)
 Task 4: complete (commit 6dfa68d)
 Task 5: complete (commit 989ca55)
+Task 6: complete
+Task 7: complete (commit 1a97ef9)

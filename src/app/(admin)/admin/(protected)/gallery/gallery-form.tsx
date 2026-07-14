@@ -1,70 +1,80 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
-import { createGalleryItem } from "@/actions/gallery";
-import ImageUploader from "@/components/ImageUploader";
+import { useActionState, useState, useCallback } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { createGalleryItem, updateGalleryItem } from "@/actions/gallery";
+import FilePondUpload from "@/components/FilePondUpload";
 
-export default function GalleryForm() {
-  const [submitting, setSubmitting] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const titleRef = useRef<HTMLInputElement>(null);
-  const categoryRef = useRef<HTMLInputElement>(null);
-  const imageRef = useRef<HTMLInputElement>(null);
-  const imageKeyRef = useRef(0);
+interface UploadedFile {
+  id: string;
+  path: string;
+  isExisting?: boolean;
+}
 
-  const handleUploadComplete = useCallback((url: string) => {
-    if (imageRef.current) {
-      imageRef.current.value = url;
-    }
-  }, []);
+interface GalleryFormProps {
+  itemId?: string;
+  defaultValues?: {
+    title?: string;
+    slug?: string;
+    description?: string;
+    category?: string;
+    order?: number;
+    images?: { path: string; id?: string }[];
+  };
+}
 
-  const handleFormAction = useCallback(async (formData: FormData) => {
-    setSubmitting(true);
-    try {
-      await createGalleryItem(formData);
-      setSuccess(true);
-      if (titleRef.current) titleRef.current.value = "";
-      if (categoryRef.current) categoryRef.current.value = "";
-      if (imageRef.current) imageRef.current.value = "";
-      imageKeyRef.current += 1;
-      setTimeout(() => setSuccess(false), 2000);
-    } finally {
-      setSubmitting(false);
-    }
+export function GalleryForm({ itemId, defaultValues }: GalleryFormProps) {
+  const action = itemId ? updateGalleryItem.bind(null, itemId) : createGalleryItem;
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+
+  const [state, formAction, pending] = useActionState(
+    async (_prev: unknown, formData: FormData) => {
+      formData.set("imagesData", JSON.stringify(uploadedFiles));
+      await action(formData);
+    },
+    undefined
+  );
+
+  const handleFilesChange = useCallback((files: UploadedFile[]) => {
+    setUploadedFiles(files);
   }, []);
 
   return (
-    <form id="gallery-form" action={handleFormAction} className="grid gap-4 max-w-lg grid-cols-2">
-      {success && (
-        <div className="col-span-2 rounded-lg bg-primary/10 border border-primary/20 px-4 py-3 text-sm text-primary font-medium">
-          Image added to gallery
-        </div>
-      )}
-      <input
-        ref={titleRef}
-        name="title"
-        placeholder="Title"
-        className="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
-      />
-      <input
-        ref={categoryRef}
-        name="category"
-        placeholder="Category"
-        className="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm"
-      />
-      <input ref={imageRef} name="image" type="hidden" required />
-      <div className="col-span-2">
-        <ImageUploader key={imageKeyRef.current} onUploadComplete={handleUploadComplete} formId="gallery-form" />
+    <form action={formAction} className="max-w-lg space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="title">Title</Label>
+        <Input id="title" name="title" defaultValue={defaultValues?.title || ""} />
       </div>
-      {submitting && (
-        <div className="col-span-2 flex items-center justify-center gap-2 py-2 text-sm text-muted-foreground">
-          <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4z" />
-          </svg>
-          Saving...
-        </div>
-      )}
+      <div className="space-y-2">
+        <Label htmlFor="slug">Slug</Label>
+        <Input id="slug" name="slug" defaultValue={defaultValues?.slug || ""} />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="description">Description</Label>
+        <Textarea id="description" name="description" defaultValue={defaultValues?.description || ""} rows={3} />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="category">Category</Label>
+        <Input id="category" name="category" defaultValue={defaultValues?.category || ""} />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="order">Order</Label>
+        <Input id="order" name="order" type="number" defaultValue={defaultValues?.order?.toString() || "0"} />
+      </div>
+      <div className="space-y-2">
+        <FilePondUpload
+          existingImages={defaultValues?.images || []}
+          onFilesChange={handleFilesChange}
+          label="Gallery Images"
+        />
+      </div>
+      <input type="hidden" name="imagesData" value={JSON.stringify(uploadedFiles)} />
+      <Button type="submit" disabled={pending}>
+        {pending ? "Saving..." : itemId ? "Update Gallery Item" : "Add to Gallery"}
+      </Button>
     </form>
   );
 }
