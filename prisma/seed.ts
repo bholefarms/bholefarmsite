@@ -16,12 +16,17 @@ const prisma = createPrismaClient();
 async function main() {
   const hashedPassword = await bcrypt.hash("admin123", 12);
 
-  const admin = await prisma.user.upsert({
+  // Delete the old placeholder admin user if it exists
+  await prisma.user.deleteMany({
     where: { email: "admin@bholefarms.com" },
+  });
+
+  const admin = await prisma.user.upsert({
+    where: { email: "bholefarms21@gmail.com" },
     update: {},
     create: {
       name: "Admin",
-      email: "admin@bholefarms.com",
+      email: "bholefarms21@gmail.com",
       hashedPassword,
       role: "ADMIN",
     },
@@ -245,19 +250,21 @@ async function main() {
     }
   }
 
-  console.log("Products seeded:", products.length);
+  // Clear old gallery items first
+  await prisma.galleryImage.deleteMany();
+  await prisma.galleryItem.deleteMany();
 
   // Seed gallery items
   const galleryItems = [
-    { title: "Sunrise at the Orchard", slug: "sunrise-orchard", category: "Farm Life", imagePath: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80", order: 1 },
-    { title: "Alphonso Mango Harvest", slug: "alphonso-harvest", category: "Mangoes", imagePath: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=600&q=80", order: 2 },
-    { title: "Fresh Jamun Berries", slug: "fresh-jamun", category: "Jamun", imagePath: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=600&q=80", order: 3 },
-    { title: "Our Farmers", slug: "our-farmers", category: "Farm Life", imagePath: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80", order: 4 },
-    { title: "Green Fields", slug: "green-fields", category: "Harvest", imagePath: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&q=80", order: 5 },
-    { title: "Organic Farming", slug: "organic-farming", category: "Harvest", imagePath: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=600&q=80", order: 6 },
-    { title: "Kesar Mangoes", slug: "kesar-mangoes-gallery", category: "Mangoes", imagePath: "https://images.unsplash.com/photo-1629828874514-d53eeea7a101?w=600&q=80", order: 7 },
-    { title: "Farm Sunset", slug: "farm-sunset", category: "Farm Life", imagePath: "https://images.unsplash.com/photo-1536677813196-8fed27bcecdc?w=600&q=80", order: 8 },
-    { title: "Drone View", slug: "drone-view", category: "Drone Shots", imagePath: "https://images.unsplash.com/photo-1574180566232-6e1a7e3b6e5b?w=600&q=80", order: 9 },
+    { title: "Alphonso Mango Harvest", slug: "alphonso-harvest", category: "Mangoes", imagePath: "/images/alphonso-mango.jpg", order: 1 },
+    { title: "Fresh Jamun Berries", slug: "fresh-jamun", category: "Jamun", imagePath: "/images/jambhul-jamun.jpg", order: 2 },
+    { title: "Kesar Mangoes", slug: "kesar-mangoes-gallery", category: "Mangoes", imagePath: "/images/kesar-mango.jpg", order: 3 },
+    { title: "Totapuri Mangoes", slug: "totapuri-mangoes", category: "Mangoes", imagePath: "/images/totapuri-mango.jpg", order: 4 },
+    { title: "Fresh Pomegranates", slug: "fresh-pomegranates", category: "Harvest", imagePath: "/images/pomegranate-dalimb.jpg", order: 5 },
+    { title: "Fresh Guavas", slug: "fresh-guavas", category: "Harvest", imagePath: "/images/guava-peru.jpg", order: 6 },
+    { title: "Mango Orchard Sunrise", slug: "orchard-sunrise", category: "Farm Life", imagePath: "/images/mango-tree-banner.jpg", order: 7 },
+    { title: "Drone View of Orchards", slug: "drone-orchards", category: "Drone Shots", imagePath: "/images/about-drone-orchard.jpg", order: 8 },
+    { title: "Freshly Harvested Basket", slug: "harvested-basket", category: "Harvest", imagePath: "/images/hero-mango-basket.jpg", order: 9 },
   ];
 
   for (const gItem of galleryItems) {

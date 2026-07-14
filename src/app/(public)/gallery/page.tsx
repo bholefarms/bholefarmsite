@@ -50,15 +50,15 @@ export default async function GalleryPage() {
           {/* Masonry Grid */}
           <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
             {(items.length > 0 ? items : [
-              { id: "1", images: [{ imagePath: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80" }], title: "Sunrise at the Orchard", category: "Farm Life" },
-              { id: "2", images: [{ imagePath: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=600&q=80" }], title: "Alphonso Mango Harvest", category: "Mangoes" },
-              { id: "3", images: [{ imagePath: "https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=600&q=80" }], title: "Fresh Jamun Berries", category: "Jamun" },
-              { id: "4", images: [{ imagePath: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" }], title: "Our Farmers", category: "Farm Life" },
-              { id: "5", images: [{ imagePath: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&q=80" }], title: "Green Fields", category: "Harvest" },
-              { id: "6", images: [{ imagePath: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=600&q=80" }], title: "Organic Farming", category: "Harvest" },
-              { id: "7", images: [{ imagePath: "https://images.unsplash.com/photo-1629828874514-d53eeea7a101?w=600&q=80" }], title: "Kesar Mangoes", category: "Mangoes" },
-              { id: "8", images: [{ imagePath: "https://images.unsplash.com/photo-1536677813196-8fed27bcecdc?w=600&q=80" }], title: "Farm Sunset", category: "Farm Life" },
-              { id: "9", images: [{ imagePath: "https://images.unsplash.com/photo-1574180566232-6e1a7e3b6e5b?w=600&q=80" }], title: "Drone View", category: "Drone Shots" },
+              { id: "1", images: [{ imagePath: "/images/alphonso-mango.jpg" }], title: "Alphonso Mango Harvest", category: "Mangoes" },
+              { id: "2", images: [{ imagePath: "/images/jambhul-jamun.jpg" }], title: "Fresh Jamun Berries", category: "Jamun" },
+              { id: "3", images: [{ imagePath: "/images/kesar-mango.jpg" }], title: "Kesar Mangoes", category: "Mangoes" },
+              { id: "4", images: [{ imagePath: "/images/totapuri-mango.jpg" }], title: "Totapuri Mangoes", category: "Mangoes" },
+              { id: "5", images: [{ imagePath: "/images/pomegranate-dalimb.jpg" }], title: "Fresh Pomegranates", category: "Harvest" },
+              { id: "6", images: [{ imagePath: "/images/guava-peru.jpg" }], title: "Fresh Guavas", category: "Harvest" },
+              { id: "7", images: [{ imagePath: "/images/mango-tree-banner.jpg" }], title: "Mango Orchard Sunrise", category: "Farm Life" },
+              { id: "8", images: [{ imagePath: "/images/about-drone-orchard.jpg" }], title: "Drone View of Orchards", category: "Drone Shots" },
+              { id: "9", images: [{ imagePath: "/images/hero-mango-basket.jpg" }], title: "Freshly Harvested Basket", category: "Harvest" },
             ]).map((item, i) => (
               <AnimatedSection key={item.id} delay={i * 0.03}>
                 <div className="group relative mb-4 break-inside-avoid rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all cursor-pointer">

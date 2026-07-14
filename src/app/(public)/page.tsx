@@ -145,7 +145,7 @@ export default async function HomePage() {
                 <div className="group overflow-hidden rounded-3xl shadow-2xl" style={{ borderRadius: "24px" }}>
                   <div
                     className="aspect-[4/3] w-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: "url(/images/about-drone-orchard.jpg)" }}
+                    style={{ backgroundImage: "url(/images/bhole-farms-hero.png)" }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
                 </div>

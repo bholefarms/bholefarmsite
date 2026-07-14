@@ -5,7 +5,7 @@ export const WHATSAPP_NUMBER =
   process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "91XXXXXXXXXX";
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 
-export const CONTACT_EMAIL = "hello@bholefarms.com";
+export const CONTACT_EMAIL = "bholefarms21@gmail.com";
 export const CONTACT_PHONE = "+91XXXXXXXXXX";
 
 export const NAV_LINKS = [

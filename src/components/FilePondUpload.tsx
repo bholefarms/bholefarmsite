@@ -109,12 +109,19 @@ export default function FilePondUpload({
         allowReorder={true}
         instantUpload={true}
         server={{
-          url: "/api/upload",
           process: {
             url: "/api/upload",
             method: "POST",
             withCredentials: false,
-            onload: (response: string) => response,
+            onload: (response: string) => {
+              try {
+                const data = JSON.parse(response);
+                if (data.success && data.files && data.files.length > 0) {
+                  return JSON.stringify(data.files[0]);
+                }
+              } catch {}
+              return response;
+            },
             onerror: (response: string) => response,
           },
           revert: null,

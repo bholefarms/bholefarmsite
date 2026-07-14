@@ -16,7 +16,7 @@ const defaults: SiteSettings = {
   site_name: "Bhole Farms",
   site_description: "Fresh organic produce from farm to table",
   contact_phone: "+91XXXXXXXXXX",
-  contact_email: "hello@bholefarms.com",
+  contact_email: "bholefarms21@gmail.com",
   whatsapp_number: "91XXXXXXXXXX",
   address: "Bhole Farms, Maharashtra",
   hero_headline: "Fresh from Our Farm to Your Table",
