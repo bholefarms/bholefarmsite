@@ -201,8 +201,29 @@ export default async function ContactPage() {
                   </div>
                 </div>
                 {/* Embedded Map */}
-                <div className="mt-4 rounded-xl overflow-hidden h-[180px] border border-border/40">
-                  <iframe src="https://www.google.com/maps?q=Devgaon+Maharashtra+431123+India&output=embed" width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+                <div className="mt-4 rounded-xl overflow-hidden h-[180px] border border-border/40 bg-muted/30 relative group">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15065.918706319277!2d75.8836846!3d18.8342196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc52ff8d0a6097d%3A0x4ae0b111b78e362d!2sDevgaon%2C%20Maharashtra%20431123!5e0!3m2!1sen!2sin!4v1"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Bhole Farms Location"
+                    className="absolute inset-0"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                    <a
+                      href="https://maps.app.goo.gl/RkQKqEd2LpDVc4bo6"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pointer-events-auto inline-flex items-center gap-2 rounded-lg bg-white/90 backdrop-blur-sm px-4 py-2 text-sm font-semibold text-primary shadow-lg hover:bg-white transition-colors"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                      Open in Google Maps
+                    </a>
+                  </div>
                 </div>
               </AnimatedSection>
             </div>
