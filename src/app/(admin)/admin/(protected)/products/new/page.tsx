@@ -1,15 +1,14 @@
 import { prisma } from "@/lib/prisma";
 import { ProductForm } from "../product-form";
-
-export const dynamic = "force-dynamic";
+import { PageContainer } from "@/components/admin/page-container";
+import { PageHeader } from "@/components/admin/page-header";
 
 export default async function NewProductPage() {
-  const categories = await prisma.category.findMany({ orderBy: { order: "asc" } });
-
+  const categories = await prisma.category.findMany({ orderBy: { name: "asc" } });
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-heading font-bold">New Product</h1>
+    <PageContainer>
+      <PageHeader title="New Product" description="Add a new product to your farm store" />
       <ProductForm categories={categories} />
-    </div>
+    </PageContainer>
   );
 }

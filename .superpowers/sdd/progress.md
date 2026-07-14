@@ -18,3 +18,7 @@ Task 12: complete - gallery slug detail page not needed; grid display works
 Task 13: complete (commit 878d76f) - seed updated with ProductImage/GalleryImage/new fields
 Task 14: complete - admin navigation routes already register
 Task 15: complete - build passes, all commits done
+Phase 1: complete (commit 8c9780a)
+Phase 2a: complete (commit b1b77ae)
+Phase 2b: complete (commit <from git>)
+Phase 2b: complete (commit 8590d0e)

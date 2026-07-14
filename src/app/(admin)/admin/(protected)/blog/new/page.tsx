@@ -1,11 +1,13 @@
 import { createBlogPost } from "@/actions/blog";
 import { BlogForm } from "../blog-form";
+import { PageContainer } from "@/components/admin/page-container";
+import { PageHeader } from "@/components/admin/page-header";
 
-export default function NewBlogPostPage() {
+export default function NewBlogPage() {
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-heading font-bold">New Blog Post</h1>
+    <PageContainer>
+      <PageHeader title="New Blog Post" description="Create a new blog post" />
       <BlogForm action={createBlogPost} />
-    </div>
+    </PageContainer>
   );
 }
