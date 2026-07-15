@@ -8,20 +8,25 @@ export async function createProduct(formData: FormData) {
   const slug = formData.get("slug") as string;
   const description = formData.get("description") as string;
   const shortDescription = formData.get("shortDescription") as string;
-  const price = parseFloat(formData.get("price") as string) || null;
+  const priceRaw = formData.get("price");
+  const price = priceRaw ? parseFloat(priceRaw as string) : null;
   const categoryId = formData.get("categoryId") as string;
   const unit = (formData.get("unit") as string) || null;
   const sku = (formData.get("sku") as string) || null;
   const isFeatured = formData.get("isFeatured") === "on";
   const isSeasonal = formData.get("isSeasonal") === "on";
   const season = formData.get("season") as string;
-  const stock = parseInt(formData.get("stock") as string) || null;
+  const stockRaw = formData.get("stock");
+  const stock = stockRaw ? parseInt(stockRaw as string) : null;
   const imagesData = formData.get("imagesData") as string;
 
   let images: { path: string }[] = [];
   try {
     if (imagesData) images = JSON.parse(imagesData);
   } catch {}
+
+  console.log("[createProduct] formData entries:", [...formData.entries()].map(([k, v]) => `${k}=${v}`));
+  console.log("[createProduct] price:", price, "stock:", stock, "categoryId:", categoryId, "images:", JSON.stringify(images));
 
   await prisma.$transaction(async (tx) => {
     const product = await tx.product.create({
@@ -30,7 +35,7 @@ export async function createProduct(formData: FormData) {
         slug,
         description,
         shortDescription,
-        price: price || null,
+        price,
         categoryId,
         unit: unit as any,
         sku,

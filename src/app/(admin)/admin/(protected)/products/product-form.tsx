@@ -56,11 +56,17 @@ export function ProductForm({ categories, productId, defaultValues }: ProductFor
   const [selectedUnit, setSelectedUnit] = useState(defaultValues?.unit || "");
   const [selectedCategory, setSelectedCategory] = useState(defaultValues?.categoryId || "");
 
-  const [, formAction, pending] = useActionState(
+  const [state, formAction, pending] = useActionState(
     async (_prev: unknown, formData: FormData) => {
       formData.set("unit", selectedUnit);
       formData.set("categoryId", selectedCategory);
-      await action(formData);
+      console.log("[product-form] imagesData from hidden input:", formData.get("imagesData"));
+      try {
+        await action(formData);
+      } catch (e) {
+        console.error("[product-form] action error:", e);
+        throw e;
+      }
     },
     undefined
   );
